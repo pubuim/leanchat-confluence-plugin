@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flaregames</groupId>
-    <artifactId>slack-for-confluence</artifactId>
+    <artifactId>chatwork-for-confluence</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <organization>
@@ -14,13 +14,13 @@
     </organization>
 
     <packaging>atlassian-plugin</packaging>
-    <name>Slack for Confluence</name>
-    <description>This is the Slack plugin for Confluence.</description>
+    <name>Chatwork for Confluence</name>
+    <description>This is the Chatwork plugin for Confluence.</description>
 
     <dependencies>
         <dependency>
             <groupId>in.ashwanthkumar</groupId>
-            <artifactId>slack-java-webhook</artifactId>
+            <artifactId>chatwork-java-webhook</artifactId>
             <version>0.0.3</version>
         </dependency>
 

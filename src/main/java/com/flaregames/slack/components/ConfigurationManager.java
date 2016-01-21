@@ -1,4 +1,4 @@
-package com.flaregames.slack.components;
+package com.flaregames.chatwork.components;
 
 import com.atlassian.bandana.BandanaContext;
 import com.atlassian.bandana.BandanaManager;

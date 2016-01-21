@@ -1,8 +1,8 @@
-package com.flaregames.slack.components;
+package com.flaregames.chatwork.components;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import in.ashwanthkumar.slack.webhook.Slack;
-import in.ashwanthkumar.slack.webhook.SlackMessage;
+import in.ashwanthkumar.chatwork.webhook.Chatwork;
+import in.ashwanthkumar.chatwork.webhook.ChatworkMessage;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -64,7 +64,7 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
          LOGGER.info("Suppressing notification for {}.", page.getTitle());
          return;
       }
-      SlackMessage message = getMessage(page, action);
+      ChatworkMessage message = getMessage(page, action);
       for (String channel : getChannels(page)) {
          sendMessage(channel, message);
       }
@@ -78,26 +78,26 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
       return Arrays.asList(spaceChannels.split(","));
    }
 
-   private SlackMessage getMessage(AbstractPage page, String action) {
+   private ChatworkMessage getMessage(AbstractPage page, String action) {
       ConfluenceUser user = page.getLastModifier() != null ? page.getLastModifier() : page.getCreator();
-      SlackMessage message = new SlackMessage();
+      ChatworkMessage message = new ChatworkMessage();
       message = appendPageLink(message, page);
       message = message.text(" - " + action + " by ");
       return appendPersonalSpaceUrl(message, user);
    }
 
-   private void sendMessage(String channel, SlackMessage message) {
+   private void sendMessage(String channel, ChatworkMessage message) {
       LOGGER.info("Sending to {} on channel {} with message {}.", configurationManager.getWebhookUrl(), channel,
             message.toString());
       try {
-         new Slack(configurationManager.getWebhookUrl()).sendToChannel(channel).push(message);
+         new Chatwork(configurationManager.getWebhookUrl()).sendToChannel(channel).push(message);
       }
       catch (IOException e) {
-         LOGGER.error("Error when sending Slack message", e);
+         LOGGER.error("Error when sending Chatwork message", e);
       }
    }
 
-   private SlackMessage appendPersonalSpaceUrl(SlackMessage message, User user) {
+   private ChatworkMessage appendPersonalSpaceUrl(ChatworkMessage message, User user) {
       if (null == user) {
          return message.text("unknown user");
       }
@@ -105,7 +105,7 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
             + personalInformationManager.getOrCreatePersonalInformation(user).getUrlPath(), user.getFullName());
    }
 
-   private SlackMessage appendPageLink(SlackMessage message, AbstractPage page) {
+   private ChatworkMessage appendPageLink(ChatworkMessage message, AbstractPage page) {
       return message.link(tinyLink(page), page.getSpace().getDisplayTitle() + " - " + page.getTitle());
    }
 
@@ -115,13 +115,13 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
 
    @Override
    public void afterPropertiesSet() throws Exception {
-      LOGGER.debug("Register Slack event listener");
+      LOGGER.debug("Register Chatwork event listener");
       eventPublisher.register(this);
    }
 
    @Override
    public void destroy() throws Exception {
-      LOGGER.debug("Un-register Slack event listener");
+      LOGGER.debug("Un-register Chatwork event listener");
       eventPublisher.unregister(this);
    }
 }

@@ -1,4 +1,4 @@
-package com.flaregames.slack.components;
+package com.flaregames.chatwork.components;
 
 public enum ConfigurationOption {
    WEBHOOK_URL("webhook.url"), CHANNELS("channels");
@@ -10,6 +10,6 @@ public enum ConfigurationOption {
    }
 
    public String getBandanaKey() {
-      return "slack." + suffix;
+      return "chatwork." + suffix;
    }
 }

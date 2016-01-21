@@ -1,9 +1,9 @@
-#* @vtlvariable name="action" type="com.flaregames.slack.actions.ViewSpaceConfigurationAction" *#
+#* @vtlvariable name="action" type="com.flaregames.chatwork.actions.ViewSpaceConfigurationAction" *#
 #requireResource("confluence.web.resources:space-admin")
 
 <html>
 <head>
-    <title>Slack Configuration</title>
+    <title>Chatwork Configuration</title>
     <meta name="decorator" content="atl.general"/>
 </head>
     #applyDecorator("root")
@@ -13,17 +13,17 @@
 
     #applyDecorator ("root")
     #decoratorParam ("context" "spaceadminpanel")
-    #decoratorParam ("selection" "slack-space-configuration")
-    #decoratorParam ("title" "Slack Configuration")
+    #decoratorParam ("selection" "chatwork-space-configuration")
+    #decoratorParam ("title" "Chatwork Configuration")
     #decoratorParam ("selectedTab" "admin")
-    #decoratorParam ("selectedSpaceToolsWebItem" "slack-space-configuration-2")
+    #decoratorParam ("selectedSpaceToolsWebItem" "chatwork-space-configuration-2")
     #decoratorParam("helper" $action.helper)
 
 <body>
 
-<form id="slack-form" action="doconfigure-slack.action" method="post"
+<form id="chatwork-form" action="doconfigure-chatwork.action" method="post"
       class="aui edit-space-details">
-    <h2>Slack Configuration</h2>
+    <h2>Chatwork Configuration</h2>
 
 
     #form_xsrfToken()
@@ -43,13 +43,13 @@
             <div class="aui-message success shadowed closeable">
                 <p class="title">
                     <span class="aui-icon icon-success"></span>
-                    <strong>$action.getText("slack.action.success.spaceconfig")</strong>
+                    <strong>$action.getText("chatwork.action.success.spaceconfig")</strong>
                 </p>
             </div>
         <!-- .aui-message -->
         #end
     <p>
-        Confluence will notify a Slack channel when a blog post is created or a page is created or updated in this space. Enter the Slack channels to be notified (comma-separated) below.
+        Confluence will notify a Chatwork channel when a blog post is created or a page is created or updated in this space. Enter the Chatwork channels to be notified (comma-separated) below.
     </p>
 
     <div class="field-group">

@@ -1,12 +1,12 @@
 <html>
 <head>
-    <title>Slack Configuration</title>
+    <title>Chatwork Configuration</title>
 </head>
 <body>
-<form action="$req.contextPath/admin/doconfigure-slack.action" method="post" class="aui">
+<form action="$req.contextPath/admin/doconfigure-chatwork.action" method="post" class="aui">
     #form_xsrfToken()
     <input type="hidden" name="spaceKey" value="$!req.getParameter("spaceKey")" />
-    <h2>Slack API Webhook URL Configuration</h2>
+    <h2>Chatwork API Webhook URL Configuration</h2>
 
     #if($actionErrors && $actionErrors.size() > 0)
     <div class="aui-message error">
@@ -23,19 +23,19 @@
         <div class="aui-message success shadowed closeable">
             <p class="title">
                 <span class="aui-icon icon-success"></span>
-                <strong>$action.getText("slack.action.success.webhookconfig")</strong>
+                <strong>$action.getText("chatwork.action.success.webhookconfig")</strong>
             </p>
         </div>
         <!-- .aui-message -->
     #end
 
     <p>
-        Confluence accesses Slack through a Webhook URL.
+        Confluence accesses Chatwork through a Webhook URL.
     </p>
 
     <div class="field-group">
-        <label for="slackWebhookUrl">Webhook URL<span class="aui-icon icon-required"></span><span class="content"> required</span></label>
-        <input id="slackWebhookUrl" class="text" name="slackWebhookUrl" value="$!action.slackWebhookUrl"/>
+        <label for="chatworkWebhookUrl">Webhook URL<span class="aui-icon icon-required"></span><span class="content"> required</span></label>
+        <input id="chatworkWebhookUrl" class="text" name="chatworkWebhookUrl" value="$!action.chatworkWebhookUrl"/>
     </div>
 
     <div class="buttons-container">

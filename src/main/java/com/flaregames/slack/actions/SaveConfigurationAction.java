@@ -1,11 +1,11 @@
-package com.flaregames.slack.actions;
+package com.flaregames.chatwork.actions;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.security.PermissionManager;
 import com.atlassian.xwork.RequireSecurityToken;
-import com.flaregames.slack.components.ConfigurationManager;
+import com.flaregames.chatwork.components.ConfigurationManager;
 import com.opensymphony.xwork.Action;
 
 public class SaveConfigurationAction extends ConfluenceActionSupport {
@@ -15,28 +15,28 @@ public class SaveConfigurationAction extends ConfluenceActionSupport {
    private PermissionManager    permissionManager;
 
    private String               spaceKey;
-   private String               slackWebhookUrl;
+   private String               chatworkWebhookUrl;
 
    @Override
    public boolean isPermitted() {
       return permissionManager.isConfluenceAdministrator(getAuthenticatedUser());
    }
 
-   public void setSlackWebhookUrl(String slackWebhookUrl) {
-      this.slackWebhookUrl = slackWebhookUrl;
+   public void setChatworkWebhookUrl(String chatworkWebhookUrl) {
+      this.chatworkWebhookUrl = chatworkWebhookUrl;
    }
 
    @Override
    public void validate() {
-      if (StringUtils.isBlank(slackWebhookUrl)) {
-         addActionError(getText("slack.webhookurl.form.invalid"));
+      if (StringUtils.isBlank(chatworkWebhookUrl)) {
+         addActionError(getText("chatwork.webhookurl.form.invalid"));
       }
    }
 
    @Override
    @RequireSecurityToken(true)
    public String execute() throws Exception {
-      configurationManager.setWebhookUrl(slackWebhookUrl);
+      configurationManager.setWebhookUrl(chatworkWebhookUrl);
 
       if (StringUtils.isNotBlank(spaceKey)) {
          return "redirect";

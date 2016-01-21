@@ -1,7 +1,7 @@
-package com.flaregames.slack.actions;
+package com.flaregames.chatwork.actions;
 
 import com.atlassian.confluence.spaces.actions.AbstractSpaceAdminAction;
-import com.flaregames.slack.components.ConfigurationManager;
+import com.flaregames.chatwork.components.ConfigurationManager;
 import com.opensymphony.xwork.Action;
 
 public final class ViewSpaceConfigurationAction extends AbstractSpaceAdminAction {

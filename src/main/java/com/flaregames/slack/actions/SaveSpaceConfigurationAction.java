@@ -1,4 +1,4 @@
-package com.flaregames.slack.actions;
+package com.flaregames.chatwork.actions;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.security.SpacePermission;
 import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.xwork.RequireSecurityToken;
-import com.flaregames.slack.components.ConfigurationManager;
+import com.flaregames.chatwork.components.ConfigurationManager;
 import com.opensymphony.xwork.Action;
 
 public class SaveSpaceConfigurationAction extends ConfluenceActionSupport {
@@ -25,7 +25,7 @@ public class SaveSpaceConfigurationAction extends ConfluenceActionSupport {
       super.validate();
 
       if (StringUtils.isBlank(key) || spaceManager.getSpace(key) == null) {
-         addActionError(getText("slack.spaceconfig.spacekeyerror"));
+         addActionError(getText("chatwork.spaceconfig.spacekeyerror"));
       }
    }
 

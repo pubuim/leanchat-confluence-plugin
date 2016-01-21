@@ -1,8 +1,8 @@
-package com.flaregames.slack.actions;
+package com.flaregames.chatwork.actions;
 
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.security.PermissionManager;
-import com.flaregames.slack.components.ConfigurationManager;
+import com.flaregames.chatwork.components.ConfigurationManager;
 import com.opensymphony.xwork.Action;
 
 public class ViewConfigurationAction extends ConfluenceActionSupport {
@@ -28,7 +28,7 @@ public class ViewConfigurationAction extends ConfluenceActionSupport {
       return permissionManager.isConfluenceAdministrator(getAuthenticatedUser());
    }
 
-   public String getSlackWebhookUrl() {
+   public String getChatworkWebhookUrl() {
       return configurationManager.getWebhookUrl();
    }
 
