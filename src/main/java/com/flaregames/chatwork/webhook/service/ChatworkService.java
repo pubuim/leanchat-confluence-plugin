@@ -19,13 +19,22 @@ import java.util.Map;
 import static in.ashwanthkumar.utils.lang.StringUtils.isNotEmpty;
 import static in.ashwanthkumar.utils.lang.StringUtils.startsWith;
 
-
 public class ChatworkService {
     private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
-    public void push(String webHookUrl, ChatworkMessage text, String username, String imageOrIcon, String destination, List<ChatworkAttachment> attachments) throws IOException {
-        Map<String, Object> payload = new HashMap<String, Object>();
+    public void push(String webHookUrl, String text, String url, String action, String space_id, String username, String imageOrIcon, String destination) throws IOException {
+        Map<String, String> payload = new HashMap<String, String>();
+        //GenericData payload = new GenericData();
+        if (isNotEmpty(url)) {
+            payload.put("url", url);
+        }
+        if (isNotEmpty(action)) {
+            payload.put("action", action);
+        }
+        if (isNotEmpty(space_id)) {
+            payload.put("space_id", space_id);
+        }
         if (isNotEmpty(username)) {
             payload.put("username", username);
         }
@@ -37,23 +46,17 @@ public class ChatworkService {
         if (isNotEmpty(destination)) {
             payload.put("channel", destination);
         }
-        if (!attachments.isEmpty()) {
-            payload.put("attachments", attachments);
-        }
-        payload.put("text", text.toString());
+        payload.put("text", text);
         execute(webHookUrl, payload);
     }
 
-    public void push(String webHookUrl, ChatworkMessage text, String username, String imageOrIcon, String destination) throws IOException {
-        push(webHookUrl, text, username, imageOrIcon, destination, new ArrayList<ChatworkAttachment>());
-    }
+    public void execute(String webHookUrl, Map<String, String> payload) throws IOException {
+        //String jsonEncodedMessage = new Gson().toJson(payload);
+        //HashMap<Object, Object> payloadToSend = Maps.newHashMap();
+        //payloadToSend.put("payload", jsonEncodedMessage);
 
-    public void execute(String webHookUrl, Map<String, Object> payload) throws IOException {
-        String jsonEncodedMessage = new Gson().toJson(payload);
-        HashMap<Object, Object> payloadToSend = Maps.newHashMap();
-        payloadToSend.put("payload", jsonEncodedMessage);
-
-        requestFactory.buildPostRequest(new GenericUrl(webHookUrl), new UrlEncodedContent(payloadToSend))
+        requestFactory.buildPostRequest(new GenericUrl(webHookUrl), new UrlEncodedContent(payload))
                 .execute();
     }
+
 }

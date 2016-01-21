@@ -64,9 +64,9 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
          LOGGER.info("Suppressing notification for {}.", page.getTitle());
          return;
       }
-      ChatworkMessage message = getMessage(page, action);
+      String message = getMessage(page, action);
       for (String channel : getChannels(page)) {
-         sendMessage(channel, message);
+         sendMessage(channel, message, page, action);
       }
    }
 
@@ -78,19 +78,17 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
       return Arrays.asList(spaceChannels.split(","));
    }
 
-   private ChatworkMessage getMessage(AbstractPage page, String action) {
+   private String getMessage(AbstractPage page, String action) {
       ConfluenceUser user = page.getLastModifier() != null ? page.getLastModifier() : page.getCreator();
-      ChatworkMessage message = new ChatworkMessage();
-      message = appendPageLink(message, page);
-      message = message.text(" - " + action + " by ");
-      return appendPersonalSpaceUrl(message, user);
+      String message = page.getSpace().getDisplayTitle() + " - " + page.getTitle() + " - " + action + " by " + user.getFullName();
+      return message;
    }
 
-   private void sendMessage(String channel, ChatworkMessage message) {
+   private void sendMessage(String channel, String message, AbstractPage page, String action) {
       LOGGER.info("Sending to {} on channel {} with message {}.", configurationManager.getWebhookUrl(), channel,
             message.toString());
       try {
-         new Chatwork(configurationManager.getWebhookUrl()).sendToChannel(channel).push(message);
+         new Chatwork(configurationManager.getWebhookUrl(), channel).sendToSpaceId(page.getSpace().getKey()).sendToUrl(tinyLink(page)).sendToAction(action).push(message);
       }
       catch (IOException e) {
          LOGGER.error("Error when sending Chatwork message", e);

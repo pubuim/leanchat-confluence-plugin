@@ -17,15 +17,18 @@ public class Chatwork {
     private String channel;
     private String user;
     private String icon;
+    private String url;
+    private String action;
+    private String space_id;
     private ChatworkService chatworkService = new ChatworkService();
 
-    public Chatwork(String webhookUrl) {
+    public Chatwork(String webhookUrl, String channel) {
         if (isEmpty(webhookUrl)) {
             throw new IllegalArgumentException("Webhook url is not provided");
-        } else if (!webhookUrl.startsWith("https://hooks.chatwork.com/services/")) {
-            throw new IllegalArgumentException("Chatwork Webhook url starts with https://hooks.chatwork.com/services/");
-        }
-        this.webhookUrl = webhookUrl;
+        } //else if (!webhookUrl.startsWith("https://hooks.chatwork.com/services/")) {
+        //    throw new IllegalArgumentException("Chatwork Webhook url starts with https://hooks.chatwork.com/services/");
+        //}
+        this.webhookUrl = webhookUrl + channel;
     }
 
     /**
@@ -49,7 +52,7 @@ public class Chatwork {
     /**
      * Send the message to a particular user
      *
-     * @param sendToUser User to send
+     * @param sendToUser UserChannel to send
      */
     public Chatwork sendToUser(String sendToUser) {
         this.channel = "@" + sendToUser;
@@ -77,36 +80,45 @@ public class Chatwork {
     }
 
     /**
+     * Change the url
+     *
+     * @param url Page url
+     */
+    public Chatwork sendToUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Change the action type
+     *
+     * @param action Action type
+     */
+    public Chatwork sendToAction(String action) {
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Change the Space ID
+     *
+     * @param space_id Space ID
+     */
+    public Chatwork sendToSpaceId(String space_id) {
+        this.space_id = space_id;
+        return this;
+    }
+
+    /**
      * Publishes messages to Chatwork Webhook
      *
      * @param message Message to send
      * @throws IOException
      */
-    public void push(ChatworkMessage message) throws IOException {
+    public void push(String message) throws IOException {
         if (message != null) {
-            chatworkService.push(webhookUrl, message, user, icon, channel);
+            chatworkService.push(webhookUrl, message, url, action, space_id, user, icon, channel);
         }
     }
 
-    /**
-     * Publish message as ChatworkAttachment
-     *
-     * @param attachment ChatworkAttachment to send
-     * @throws IOException
-     */
-    public void push(ChatworkAttachment attachment) throws IOException {
-        if (attachment != null) {
-            chatworkService.push(webhookUrl, new ChatworkMessage(), user, icon, channel, Lists.of(attachment));
-        }
-    }
-
-    /**
-     * Publish message as ChatworkAttachment
-     *
-     * @param attachments ChatworkAttachment to send
-     * @throws IOException
-     */
-    public void push(List<ChatworkAttachment> attachments) throws IOException {
-        chatworkService.push(webhookUrl, new ChatworkMessage(), user, icon, channel, attachments);
-    }
 }
