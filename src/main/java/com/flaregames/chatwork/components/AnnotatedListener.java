@@ -73,7 +73,7 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
 
     private String getMessage(AbstractPage page, String action) {
         ConfluenceUser user = page.getLastModifier() != null ? page.getLastModifier() : page.getCreator();
-        String message = action + " " + page.getTitle() + " - " + user.getFullName();
+        String message = action + "<a href=\"" +tinyLink(page) + "\"> " + page.getTitle() + " </a> - " + user.getFullName();
         return message;
     }
 
