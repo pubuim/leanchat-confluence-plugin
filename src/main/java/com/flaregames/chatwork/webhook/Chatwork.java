@@ -14,7 +14,6 @@ import static in.ashwanthkumar.utils.lang.StringUtils.isEmpty;
  */
 public class Chatwork {
     private String webhookUrl;
-    private String channel;
     private String user;
     private String icon;
     private String url;
@@ -22,41 +21,11 @@ public class Chatwork {
     private String space_id;
     private ChatworkService chatworkService = new ChatworkService();
 
-    public Chatwork(String webhookUrl, String channel) {
+    public Chatwork(String webhookUrl) {
         if (isEmpty(webhookUrl)) {
             throw new IllegalArgumentException("Webhook url is not provided");
-        } //else if (!webhookUrl.startsWith("https://hooks.chatwork.com/services/")) {
-        //    throw new IllegalArgumentException("Chatwork Webhook url starts with https://hooks.chatwork.com/services/");
-        //}
-        this.webhookUrl = webhookUrl + channel;
-    }
-
-    /**
-     * Used for tests
-     */
-    Chatwork(String webhookUrl, ChatworkService mockService) {
+        }
         this.webhookUrl = webhookUrl;
-        chatworkService = mockService;
-    }
-
-    /**
-     * Send the message to a particular channel
-     *
-     * @param channel Channel to send
-     */
-    public Chatwork sendToChannel(String channel) {
-        this.channel = "#" + channel;
-        return this;
-    }
-
-    /**
-     * Send the message to a particular user
-     *
-     * @param sendToUser UserChannel to send
-     */
-    public Chatwork sendToUser(String sendToUser) {
-        this.channel = "@" + sendToUser;
-        return this;
     }
 
     /**
@@ -117,7 +86,7 @@ public class Chatwork {
      */
     public void push(String message) throws IOException {
         if (message != null) {
-            chatworkService.push(webhookUrl, message, url, action, space_id, user, icon, channel);
+            chatworkService.push(webhookUrl, message, url, action, space_id, user, icon);
         }
     }
 

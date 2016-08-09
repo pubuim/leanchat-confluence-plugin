@@ -4,18 +4,18 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.flaregames</groupId>
-    <artifactId>chatwork-for-confluence</artifactId>
+    <groupId>com.leanchat</groupId>
+    <artifactId>leanchat-confluence-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <organization>
-        <name>flaregames GmbH</name>
-        <url>http://www.flaregames.com/</url>
+        <name>LeanChat</name>
+        <url>https://pubu.im/</url>
     </organization>
 
     <packaging>atlassian-plugin</packaging>
-    <name>Chatwork for Confluence</name>
-    <description>This is the Chatwork plugin for Confluence.</description>
+    <name>LeanChat Confluence Plugin</name>
+    <description>This is the Leanchat plugin for Confluence.</description>
 
     <dependencies>
         <dependency>

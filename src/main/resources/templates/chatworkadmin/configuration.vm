@@ -1,12 +1,12 @@
 <html>
 <head>
-    <title>Chatwork Configuration</title>
+    <title>LeanChat Configuration</title>
 </head>
 <body>
 <form action="$req.contextPath/admin/doconfigure-chatwork.action" method="post" class="aui">
     #form_xsrfToken()
     <input type="hidden" name="spaceKey" value="$!req.getParameter("spaceKey")" />
-    <h2>Chatwork API Webhook URL Configuration</h2>
+    <h2>LeanChat API Webhook URL Configuration</h2>
 
     #if($actionErrors && $actionErrors.size() > 0)
     <div class="aui-message error">
@@ -30,7 +30,7 @@
     #end
 
     <p>
-        Confluence accesses Chatwork through a Webhook URL.
+        Confluence accesses LeanChat through a Webhook URL.
     </p>
 
     <div class="field-group">

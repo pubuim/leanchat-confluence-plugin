@@ -43,70 +43,12 @@
         </package>
     </xwork>
 
-    <web-item key="chatwork-configuration" name="Chatwork Configuration" section="system.admin/configuration"
+    <web-item key="chatwork-configuration" name="LeanChat Configuration" section="system.admin/configuration"
               weight="1000">
-        <description key="chatwork-configuration.name">Chatwork Configuration</description>
+        <description key="chatwork-configuration.name">LeanChat Configuration</description>
         <label key="chatwork-configuration.name"/>
         <link linkId="chatwork-configuration">/admin/chatwork.action</link>
         <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.ConfluenceAdministratorCondition"/>
     </web-item>
 
-    <!-- Space config -->
-    <xwork name="chatworkSpaceConfigurationAction" key="chatworkSpaceConfigurationAction">
-        <package name="chatwork-space-configure" extends="default" namespace="/spaces">
-            <default-interceptor-ref name="defaultStack"/>
-
-            <action name="chatwork" class="com.flaregames.chatwork.actions.ViewSpaceConfigurationAction">
-                <result name="success" type="velocity">/templates/chatworkadmin/space-config.vm</result>
-            </action>
-            <action name="doconfigure-chatwork" class="com.flaregames.chatwork.actions.SaveSpaceConfigurationAction">
-                <interceptor-ref name="validatingStack"/>
-                <param name="RequireSecurityToken">true</param>
-                <result name="input" type="velocity">/templates/chatworkadmin/space-config.vm</result>
-                <result name="error" type="velocity">/templates/chatworkadmin/space-config.vm</result>
-                <result name="success" type="redirect">/spaces/chatwork.action?key=${key}&amp;result=success</result>
-            </action>
-
-        </package>
-    </xwork>
-
-    <web-item key="chatwork-space-configuration" name="Chatwork Space Configuration"
-              section="system.space.admin/addons"
-              weight="1000">
-        <description key="chatwork-space-configuration.name">Chatwork Space Configuration</description>
-        <label key="chatwork-space-configuration.name"/>
-        <link linkId="chatwork-space-configuration">/spaces/chatwork.action?key=$generalUtil.urlEncode($space.key)</link>
-        <icon height="16" width="16">
-            <link absolute="true">
-                $webResourceManager.getStaticPluginResource("${project.groupId}.${project.artifactId}:image-resources",
-                "chatwork-icon-16x16.png")
-            </link>
-        </icon>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.HasSpaceCondition"/>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpacePermissionCondition">
-            <param name="permission">administer</param>
-        </condition>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.NotPersonalSpaceCondition"/>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpaceSidebarCondition" invert="true"/>
-    </web-item>
-
-    <web-item key="chatwork-space-configuration-2" name="Chatwork Space Configuration"
-              section="system.space.tools/addons"
-              weight="1000">
-        <description key="chatwork-space-configuration.name">Chatwork Space Configuration</description>
-        <label key="chatwork-space-configuration.name"/>
-        <link linkId="chatwork-space-configuration">/spaces/chatwork.action?key=$generalUtil.urlEncode($space.key)</link>
-        <icon height="16" width="16">
-            <link absolute="true">
-                $webResourceManager.getStaticPluginResource("${project.groupId}.${project.artifactId}:image-resources",
-                "chatwork-icon-16x16.png")
-            </link>
-        </icon>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.HasSpaceCondition"/>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpacePermissionCondition">
-            <param name="permission">administer</param>
-        </condition>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.NotPersonalSpaceCondition"/>
-        <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpaceSidebarCondition"/>
-    </web-item>
 </atlassian-plugin>

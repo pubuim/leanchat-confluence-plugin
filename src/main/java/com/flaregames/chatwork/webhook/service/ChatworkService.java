@@ -6,14 +6,9 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.Maps;
-import com.google.gson.Gson;
-import in.ashwanthkumar.chatwork.webhook.ChatworkAttachment;
-import in.ashwanthkumar.chatwork.webhook.ChatworkMessage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static in.ashwanthkumar.utils.lang.StringUtils.isNotEmpty;
@@ -23,7 +18,7 @@ public class ChatworkService {
     private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
-    public void push(String webHookUrl, String text, String url, String action, String space_id, String username, String imageOrIcon, String destination) throws IOException {
+    public void push(String webHookUrl, String text, String url, String action, String space_id, String username, String imageOrIcon) throws IOException {
         Map<String, String> payload = new HashMap<String, String>();
         //GenericData payload = new GenericData();
         if (isNotEmpty(url)) {
@@ -43,9 +38,7 @@ public class ChatworkService {
         } else if (isNotEmpty(imageOrIcon)) {
             payload.put("icon_emoji", imageOrIcon);
         }
-        if (isNotEmpty(destination)) {
-            payload.put("channel", destination);
-        }
+
         payload.put("text", text);
         execute(webHookUrl, payload);
     }
